@@ -104,6 +104,8 @@ struct Options: Codable, Equatable {
 	var experiment_replaceSubstrateWithEllekit: Bool
 	/// If enabled, the signing UI will be skipped and the app will be signed with the saved settings immediately.
 	var skipSigningScreen: Bool
+	/// Delete signed app record and files after installation finishes.
+	var post_deleteSignedAfterInstall: Bool
 	
 	var post_installAppAfterSigned: Bool
 	/// This will delete your imported application after signing, to save on using unneeded space.
@@ -141,6 +143,7 @@ struct Options: Codable, Equatable {
 		experiment_replaceSubstrateWithEllekit: false,
 		// post sign
 		skipSigningScreen: false,
+		post_deleteSignedAfterInstall: false,
 		post_installAppAfterSigned: false,
 		post_deleteAppAfterSigned: false
 	)

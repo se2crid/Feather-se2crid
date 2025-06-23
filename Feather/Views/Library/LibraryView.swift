@@ -258,6 +258,11 @@ extension LibraryView {
 				return
 			}
 
+			// Delete original imported app if option set
+			if options.post_deleteAppAfterSigned, !app.isSigned {
+				Storage.shared.deleteApp(for: app)
+			}
+
 			if options.post_installAppAfterSigned {
 				// Fetch latest signed app and trigger installer
 				let req: NSFetchRequest<Signed> = Signed.fetchRequest()

@@ -297,6 +297,8 @@ extension SigningView {
 					request.fetchLimit = 1
 					if let latest = (try? context.fetch(request))?.first {
 						_selectedInstallAppPresenting = AnyApp(base: latest)
+						// Automatically dismiss signing view to avoid lingering
+						dismiss()
 					}
 				} else {
 					dismiss()

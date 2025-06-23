@@ -132,6 +132,11 @@ struct SigningOptionsView: View {
 					isOn: $options.post_deleteAppAfterSigned,
 					temporaryValue: temporaryOptions?.post_deleteAppAfterSigned
 			)
+			_toggle(.localized("Delete Signed After Install"),
+						systemImage: "archivebox",
+						isOn: $options.post_deleteSignedAfterInstall,
+						temporaryValue: temporaryOptions?.post_deleteSignedAfterInstall
+			)
 		} footer: {
 			Text(.localized("This will delete your imported application after signing, to save on using unneeded space."))
 		}

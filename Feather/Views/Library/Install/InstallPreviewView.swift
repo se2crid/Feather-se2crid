@@ -8,6 +8,10 @@
 import SwiftUI
 import NimbleViews
 import IDeviceSwift
+import CoreData
+
+// Access global options
+fileprivate var globalOptions: Options { OptionsManager.shared.options }
 
 // MARK: - View
 struct InstallPreviewView: View {
@@ -58,6 +62,14 @@ struct InstallPreviewView: View {
 				
 				if case .sendingPayload = newStatus, _serverMethod == 1 {
 					_isWebviewPresenting = false
+				}
+			}
+			
+			// When installation completes, optionally delete signed app
+			if case .completed = newStatus {
+				let opts = globalOptions
+				if opts.post_deleteSignedAfterInstall {
+					Storage.shared.deleteApp(for: app)
 				}
 			}
 		}
