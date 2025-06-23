@@ -50,6 +50,69 @@ struct FeatherApp: App {
 	
 	private func _handleURL(_ url: URL) {
 		if url.scheme == "feather" {
+			// IMPORT CERTIFICATE VIA URL SCHEME: feather://import-certificate?p12=<base64>&mobileprovision=<base64>&password=<base64>
+			if url.host == "import-certificate" {
+				// Parse query parameters
+				guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
+				let queryItems = components.queryItems ?? []
+				func item(_ name: String) -> String? {
+					return queryItems.first(where: { $0.name == name })?.value?.removingPercentEncoding
+				}
+
+				guard
+					let p12Base64Raw = item("p12"),
+					let provisionBase64Raw = item("mobileprovision"),
+					let passwordBase64Raw = item("password")
+				else {
+					return
+				}
+
+				// Restore + that might have been replaced by space after url decoding
+				let p12Base64 = p12Base64Raw.replacingOccurrences(of: " ", with: "+")
+				let provisionBase64 = provisionBase64Raw.replacingOccurrences(of: " ", with: "+")
+				let passwordBase64 = passwordBase64Raw.replacingOccurrences(of: " ", with: "+")
+
+				guard
+					let p12Data = Data(base64Encoded: p12Base64),
+					let provisionData = Data(base64Encoded: provisionBase64),
+					let passwordData = Data(base64Encoded: passwordBase64),
+					let password = String(data: passwordData, encoding: .utf8)
+				else {
+					return
+				}
+
+				// Write temp files
+				let tmpDir = FileManager.default.temporaryDirectory
+				let p12URL = tmpDir.appendingPathComponent(UUID().uuidString + ".p12")
+				let provisionURL = tmpDir.appendingPathComponent(UUID().uuidString + ".mobileprovision")
+
+				try? p12Data.write(to: p12URL)
+				try? provisionData.write(to: provisionURL)
+
+				// Validate password (same check used in manual import flow)
+				guard FR.checkPasswordForCertificate(for: p12URL, with: password, using: provisionURL) else {
+					UIAlertController.showAlertWithOk(
+						title: .localized("Bad Password"),
+						message: .localized("Please check the password and try again.")
+					)
+					return
+				}
+
+				FR.handleCertificateFiles(
+					p12URL: p12URL,
+					provisionURL: provisionURL,
+					p12Password: password,
+					certificateName: ""
+				) { error in
+					if let error = error {
+						UIAlertController.showAlertWithOk(title: .localized("Error"), message: error.localizedDescription)
+					} else {
+						UIAlertController.showAlertWithOk(title: .localized("Success"), message: .localized("Certificate imported successfully"))
+					}
+				}
+				return
+			}
+			
 			if let fullPath = url.validatedScheme(after: "/source/") {
 				FR.handleSource(fullPath) { }
 			}
