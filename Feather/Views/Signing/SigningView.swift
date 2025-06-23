@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 import NimbleViews
+import CoreData
 
 // MARK: - View
 struct SigningView: View {
@@ -22,6 +23,9 @@ struct SigningView: View {
 	@State private var _isSigning = false
 	@State private var _selectedPhoto: PhotosPickerItem? = nil
 	@State var appIcon: UIImage?
+	
+	// Present installation preview when user chooses to install automatically after signing
+	@State private var _selectedInstallAppPresenting: AnyApp?
 	
 	// MARK: Fetch
 	@FetchRequest(
@@ -94,6 +98,13 @@ struct SigningView: View {
 			}
 			.disabled(_isSigning)
 			.animation(.smooth, value: _isSigning)
+			// Sheet for automatic installation preview
+			.sheet(item: $_selectedInstallAppPresenting) { app in
+				InstallPreviewView(app: app.base)
+					.presentationDetents([.height(200)])
+					.presentationDragIndicator(.visible)
+					.compatPresentationRadius(21)
+			}
 		}
 		.onAppear {
 			// ppq protection
@@ -273,14 +284,23 @@ extension SigningView {
 					actions: [ok]
 				)
 			} else {
-				if
-					_temporaryOptions.post_deleteAppAfterSigned,
-					!app.isSigned
-				{
+				// Handle post-sign deletion regardless of installation preference.
+				if _temporaryOptions.post_deleteAppAfterSigned, !app.isSigned {
 					Storage.shared.deleteApp(for: app)
 				}
-				
-				dismiss()
+
+				if _temporaryOptions.post_installAppAfterSigned {
+					// Fetch the latest signed application and present installer
+					let context = Storage.shared.context
+					let request = NSFetchRequest<Signed>(entityName: "Signed")
+					request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+					request.fetchLimit = 1
+					if let latest = (try? context.fetch(request))?.first {
+						_selectedInstallAppPresenting = AnyApp(base: latest)
+					}
+				} else {
+					dismiss()
+				}
 			}
 		}
 	}

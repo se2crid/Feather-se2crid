@@ -117,6 +117,16 @@ struct SigningOptionsView: View {
 		}
 		
 		NBSection(.localized("Post Signing")) {
+			_toggle(.localized("Install After Signing"),
+						systemImage: "square.and.arrow.down",
+						isOn: $options.post_installAppAfterSigned,
+						temporaryValue: temporaryOptions?.post_installAppAfterSigned
+			)
+			_toggle(.localized("Skip Signing Screen"),
+						systemImage: "eye.slash",
+						isOn: $options.skipSigningScreen,
+						temporaryValue: temporaryOptions?.skipSigningScreen
+			)
 			_toggle(.localized("Delete After Signing"),
 					systemImage: "trash",
 					isOn: $options.post_deleteAppAfterSigned,

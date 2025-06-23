@@ -19,6 +19,7 @@ struct LibraryView: View {
 	@State private var _isImportingPresenting = false
 	@State private var _isDownloadingPresenting = false
 	@State private var _alertDownloadString: String = "" // for _isDownloadingPresenting
+	@State private var _isAutoSigning = false
 	
 	@State private var _searchText = ""
 	@State private var _selectedScope: Scope = .all
@@ -148,9 +149,33 @@ struct LibraryView: View {
 					.presentationDragIndicator(.visible)
 					.compatPresentationRadius(21)
 			}
-			.fullScreenCover(item: $_selectedSigningAppPresenting) { app in
+			.fullScreenCover(item: _signingCoverBinding) { app in
 				SigningView(app: app.base)
 					.compatNavigationTransition(id: app.base.uuid ?? "", ns: _namespace)
+			}
+			.onChange(of: _selectedSigningAppPresenting?.id) { _ in
+				guard let anyApp = _selectedSigningAppPresenting else { return }
+				let options = OptionsManager.shared.options
+				if options.skipSigningScreen, !_isAutoSigning {
+					// Intercept and auto sign without presenting UI
+					_selectedSigningAppPresenting = nil
+					_isAutoSigning = true
+					_autoSignAndMaybeInstall(app: anyApp.base, options: options) {
+						_isAutoSigning = false
+					}
+				}
+			}
+			.onChange(of: _selectedInstallAppPresenting?.id) { _ in
+				guard let anyApp = _selectedInstallAppPresenting else { return }
+				let options = OptionsManager.shared.options
+				// If attempting to install an unsigned app and skipping signing UI is enabled, auto sign & install
+				if !anyApp.base.isSigned, options.skipSigningScreen, !_isAutoSigning {
+					_selectedInstallAppPresenting = nil
+					_isAutoSigning = true
+					_autoSignAndMaybeInstall(app: anyApp.base, options: options) {
+						_isAutoSigning = false
+					}
+				}
 			}
 			.sheet(isPresented: $_isImportingPresenting) {
 				FileImporterRepresentableView(
@@ -210,6 +235,57 @@ extension LibraryView {
 			case .signed: return .localized("Signed")
 			case .imported: return .localized("Imported")
 			}
+		}
+	}
+}
+
+// MARK: - Auto Sign Helper
+extension LibraryView {
+	private func _autoSignAndMaybeInstall(app: AppInfoPresentable, options: Options, completion: @escaping () -> Void) {
+		let context = Storage.shared.context
+		// Fetch certificates ordered by date
+		let fetch: NSFetchRequest<CertificatePair> = CertificatePair.fetchRequest()
+		fetch.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+		let certificates = (try? context.fetch(fetch)) ?? []
+		let selectedIndex = UserDefaults.standard.integer(forKey: "feather.selectedCert")
+		let cert: CertificatePair? = certificates.indices.contains(selectedIndex) ? certificates[selectedIndex] : nil
+
+		FR.signPackageFile(app, using: options, icon: nil, certificate: cert) { error in
+			if let error {
+				// present error alert
+				UIAlertController.showAlertWithOk(title: .localized("Signing"), message: error.localizedDescription)
+				completion()
+				return
+			}
+
+			if options.post_installAppAfterSigned {
+				// Fetch latest signed app and trigger installer
+				let req: NSFetchRequest<Signed> = Signed.fetchRequest()
+				req.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+				req.fetchLimit = 1
+				if let latest = (try? context.fetch(req))?.first {
+					DispatchQueue.main.async {
+						_selectedInstallAppPresenting = AnyApp(base: latest)
+						completion()
+					}
+				} else {
+					completion()
+				}
+			} else {
+				completion()
+			}
+		}
+	}
+}
+
+// Binding used to decide whether to present the manual signing UI
+extension LibraryView {
+	private var _signingCoverBinding: Binding<AnyApp?> {
+		Binding<AnyApp?> {
+			let skip = OptionsManager.shared.options.skipSigningScreen
+			return skip ? nil : _selectedSigningAppPresenting
+		} set: { newValue in
+			_selectedSigningAppPresenting = newValue
 		}
 	}
 }

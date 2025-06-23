@@ -102,6 +102,8 @@ struct Options: Codable, Equatable {
 	var experiment_supportLiquidGlass: Bool
 	/// Modifies application to use ElleKit instead of CydiaSubstrate
 	var experiment_replaceSubstrateWithEllekit: Bool
+	/// If enabled, the signing UI will be skipped and the app will be signed with the saved settings immediately.
+	var skipSigningScreen: Bool
 	
 	var post_installAppAfterSigned: Bool
 	/// This will delete your imported application after signing, to save on using unneeded space.
@@ -138,6 +140,7 @@ struct Options: Codable, Equatable {
 		experiment_supportLiquidGlass: false,
 		experiment_replaceSubstrateWithEllekit: false,
 		// post sign
+		skipSigningScreen: false,
 		post_installAppAfterSigned: false,
 		post_deleteAppAfterSigned: false
 	)

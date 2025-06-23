@@ -42,12 +42,17 @@ extension Storage {
 }
 
 // MARK: - Helpers
-struct AnyApp: Identifiable {
+struct AnyApp: Identifiable, Equatable {
 	let base: AppInfoPresentable
 	var archive: Bool = false
 	
 	var id: String {
 		base.uuid ?? UUID().uuidString
+	}
+	
+	// Equatable conformance
+	static func == (lhs: AnyApp, rhs: AnyApp) -> Bool {
+		lhs.base.uuid == rhs.base.uuid && lhs.archive == rhs.archive
 	}
 }
 
