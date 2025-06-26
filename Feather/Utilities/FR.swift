@@ -210,22 +210,25 @@ enum FR {
 			UIApplication.shared.open(callbackUrl)
 		}
 		
-		// Retrieve all available certificates
 		let certificates = Storage.shared.getAllCertificates()
 		guard !certificates.isEmpty else { return }
 		
 		DispatchQueue.main.async {
-			// Build selection actions for each certificate
 			var selectionActions: [UIAlertAction] = []
 			
 			for cert in certificates {
-				let title: String
+				var title: String
+				let decoded = Storage.shared.getProvisionFileDecoded(for: cert)
 				if let nickname = cert.nickname, !nickname.isEmpty {
 					title = nickname
-				} else if let name = Storage.shared.getProvisionFileDecoded(for: cert)?.Name {
+				} else if let name = decoded?.Name {
 					title = name
 				} else {
 					title = .localized("Unknown")
+				}
+				
+				if let getTaskAllow = decoded?.Entitlements?["get-task-allow"]?.value as? Bool, getTaskAllow == true {
+					title += " 🐞"
 				}
 				
 				let selectAction = UIAlertAction(title: title, style: .default) { _ in
@@ -234,7 +237,6 @@ enum FR {
 				selectionActions.append(selectAction)
 			}
 			
-			// Present centred alert for certificate selection & confirmation combined
 			UIAlertController.showAlertWithCancel(
 				title: .localized("Export Certificate"),
 				message: .localized("Do you want to export your certificate to an external app? That app will be able to sign apps using your certificate."),
