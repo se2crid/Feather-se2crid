@@ -3,9 +3,12 @@ PLATFORM := iphoneos
 SCHEMES := Feather
 TMP := $(TMPDIR)/$(NAME)
 STAGE := $(TMP)/stage
-APP := $(TMP)/Build/Products/Release-$(PLATFORM)
+# Build configuration: Release (default) or Debug when overridden
+CONFIG ?= Release
+# Derived path for the app based on configuration
+APP := $(TMP)/Build/Products/$(CONFIG)-$(PLATFORM)
 
-.PHONY: all clean $(SCHEMES)
+.PHONY: all clean $(SCHEMES) debug
 
 all: $(SCHEMES)
 
@@ -28,7 +31,7 @@ $(SCHEMES): deps
 	xcodebuild \
 	    -project Feather.xcodeproj \
 	    -scheme "$@" \
-	    -configuration Release \
+	    -configuration $(CONFIG) \
 	    -arch arm64 \
 	    -sdk $(PLATFORM) \
 	    -derivedDataPath $(TMP) \
@@ -49,3 +52,7 @@ $(SCHEMES): deps
 	
 	mkdir -p packages
 	zip -r9 "packages/$@.ipa" Payload
+
+# Convenience target to build using Debug configuration
+debug:
+	$(MAKE) CONFIG=Debug $(SCHEMES)
