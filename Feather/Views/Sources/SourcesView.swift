@@ -13,9 +13,9 @@ import NimbleViews
 // MARK: - View
 struct SourcesView: View {
 	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
-	
+	#if !NIGHTLY && !DEBUG
 	@AppStorage("Feather.shouldStar") private var _shouldStar: Int = 0
-	
+	#endif
 	@StateObject var viewModel = SourcesViewModel.shared
 	@State private var _isAddingPresenting = false
 	@State private var _addingSourceLoading = false
@@ -102,16 +102,17 @@ struct SourcesView: View {
 					_isAddingPresenting = true
 				}
 			}
-			.sheet(isPresented: $_isAddingPresenting) {
-				SourcesAddView()
-			}
 			.refreshable {
 				await viewModel.fetchSources(_sources, refresh: true)
+			}
+			.sheet(isPresented: $_isAddingPresenting) {
+				SourcesAddView()
 			}
 		}
 		.task(id: Array(_sources)) {
 			await viewModel.fetchSources(_sources)
 		}
+		#if !NIGHTLY && !DEBUG
 		.onAppear {
 			guard _shouldStar < 6 else { return }; _shouldStar += 1
 			guard _shouldStar == 6 else { return }
@@ -128,5 +129,6 @@ struct SourcesView: View {
 				actions: [github, cancel]
 			)
 		}
+		#endif
 	}
 }

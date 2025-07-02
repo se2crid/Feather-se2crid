@@ -87,12 +87,6 @@ struct SigningOptionsView: View {
 		}
 		
 		NBSection(.localized("Removal")) {
-			_toggle(.localized("Remove Supported Devices"),
-					systemImage: "iphone.slash",
-					isOn: $options.removeSupportedDevices,
-					temporaryValue: temporaryOptions?.removeSupportedDevices
-			)
-			
 			_toggle(.localized("Remove URL Scheme"),
 					systemImage: "ellipsis.curlybraces",
 					isOn: $options.removeURLScheme,
@@ -104,6 +98,8 @@ struct SigningOptionsView: View {
 					isOn: $options.removeProvisioning,
 					temporaryValue: temporaryOptions?.removeProvisioning
 			)
+		} footer: {
+			Text(.localized("Removing the provisioning file will exclude the mobileprovision file from being embedded inside of the application when signing, to help prevent any detection."))
 		}
 		
 		Section {
