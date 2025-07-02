@@ -1,5 +1,8 @@
 name: Build Debug
 
+permissions:
+  contents: write  # allow committing changes back to repo
+
 on:
   push:
     branches:
@@ -50,3 +53,18 @@ jobs:
         with:
           name: FeatherDebug
           path: upload/*ipa
+
+      - name: Update app-repo.json
+        run: |
+          ./update-repo.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "chore: update repo"
+          add: app-repo.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
