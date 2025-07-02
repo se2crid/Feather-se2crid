@@ -6,8 +6,9 @@ handle_error() {
   exit 1
 }
 
-echo "Fetching latest release data from GitHub..."
-release_info=$(curl -s https://api.github.com/repos/khcrysalis/Feather/releases/latest)
+REPO="${GITHUB_REPOSITORY:-khcrysalis/Feather}"
+echo "Fetching latest release data from GitHub repository: $REPO ..."
+release_info=$(curl -s "https://api.github.com/repos/${REPO}/releases/latest")
 clean_release_info=$(echo "$release_info" | tr -d '\000-\037')
 
 updated_at=$(echo "$clean_release_info" | jq -r '.published_at // .created_at // empty')
