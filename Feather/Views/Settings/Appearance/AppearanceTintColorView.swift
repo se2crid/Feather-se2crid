@@ -54,10 +54,44 @@ struct AppearanceTintColorView: View {
 					}
 					.accessibilityLabel(Text(option.name))
 				}
+
+				// Custom color picker tile
+				VStack(spacing: 8) {
+					ColorPicker("", selection: Binding(
+						get: { Color(hex: selectedColorHex) },
+						set: { newColor in
+							selectedColorHex = "#" + newColor.toHex
+						}
+					), supportsOpacity: false)
+					.labelsHidden()
+					.frame(width: 30, height: 30)
+					.clipShape(Circle())
+					.overlay(
+						Circle()
+							.strokeBorder(Color.black.opacity(0.3), lineWidth: 2)
+					)
+
+					Text(.localized("Custom"))
+						.font(.subheadline)
+						.foregroundColor(.secondary)
+				}
+				.frame(width: 120, height: 100)
+				.background(Color(uiColor: .secondarySystemGroupedBackground))
+				.clipShape(RoundedRectangle(cornerRadius: 10.5, style: .continuous))
+				.overlay(
+					RoundedRectangle(cornerRadius: 10.5, style: .continuous)
+						.strokeBorder(isCustomSelected ? Color(hex: selectedColorHex) : .clear, lineWidth: 2)
+				)
+				.accessibilityLabel(Text(.localized("Custom Color")))
 			}
 		}
 		.onChange(of: selectedColorHex) { value in
 			UIApplication.topViewController()?.view.window?.tintColor = UIColor(Color(hex: value))
 		}
+	}
+
+	// Helper
+	private var isCustomSelected: Bool {
+		!tintOptions.contains { $0.hex.lowercased() == selectedColorHex.lowercased() }
 	}
 }
