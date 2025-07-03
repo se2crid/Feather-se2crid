@@ -17,8 +17,6 @@ struct AppearanceView: View {
 	
 	@AppStorage("Feather.storeCellAppearance")
 	private var _storeCellAppearance: Int = 0
-	@AppStorage("Feather.userTintColor")
-	private var _userTintColor: String = "#B496DC"
 	private let _storeCellAppearanceMethods: [(name: String, desc: String)] = [
 		(.localized("Standard"), .localized("Default style for the app, only includes subtitle.")),
 		(.localized("Big Description"), .localized("Adds the localized description of the app."))
