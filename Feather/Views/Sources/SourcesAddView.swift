@@ -171,7 +171,6 @@ struct SourcesAddView: View {
 		let dataService = _dataService
 		
 		return await withTaskGroup(of: (url: URL, data: ASRepository)?.self) { group in
-			// Spawn a child task for each URL.
 			for url in urls {
 				group.addTask {
 					await withCheckedContinuation { continuation in
@@ -188,7 +187,6 @@ struct SourcesAddView: View {
 				}
 			}
 			
-			// Collect the results as the child tasks finish.
 			var collected: [(url: URL, data: ASRepository)] = []
 			for await item in group {
 				if let item {
