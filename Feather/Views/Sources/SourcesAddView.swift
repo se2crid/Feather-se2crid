@@ -168,32 +168,35 @@ struct SourcesAddView: View {
 	private func _concurrentFetchRepositories(
 		from urls: [URL]
 	) async -> [(url: URL, data: ASRepository)] {
-		var results: [(url: URL, data: ASRepository)] = []
-		
 		let dataService = _dataService
 		
-		await withTaskGroup(of: Void.self) { group in
+		return await withTaskGroup(of: (url: URL, data: ASRepository)?.self) { group in
+			// Spawn a child task for each URL.
 			for url in urls {
 				group.addTask {
 					await withCheckedContinuation { continuation in
 						dataService.fetch<ASRepository>(from: url) { (result: RepositoryDataHandler) in
 							switch result {
 							case .success(let repo):
-								Task { @MainActor in
-									results.append((url: url, data: repo))
-								}
+								continuation.resume(returning: (url: url, data: repo))
 							case .failure(let error):
 								Logger.misc.error("Failed to fetch \(url): \(error.localizedDescription)")
+								continuation.resume(returning: nil)
 							}
-							continuation.resume()
 						}
 					}
 				}
 			}
-			await group.waitForAll()
+			
+			// Collect the results as the child tasks finish.
+			var collected: [(url: URL, data: ASRepository)] = []
+			for await item in group {
+				if let item {
+					collected.append(item)
+				}
+			}
+			return collected
 		}
-		
-		return results
 	}
 
 }
