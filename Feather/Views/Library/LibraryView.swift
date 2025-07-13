@@ -22,6 +22,8 @@ struct LibraryView: View {
 	
 	@State private var _searchText = ""
 	@State private var _selectedScope: Scope = .all
+	@State private var _highlightedUuid: String?
+
 	
 	@Namespace private var _namespace
 	
@@ -57,130 +59,147 @@ struct LibraryView: View {
 	// MARK: Body
     var body: some View {
 		NBNavigationView(.localized("Library")) {
-			NBListAdaptable {
-				if
-					!_filteredSignedApps.isEmpty ||
-					!_filteredImportedApps.isEmpty
-				{
+			ScrollViewReader { proxy in
+				NBListAdaptable {
 					if
-						_selectedScope == .all ||
-						_selectedScope == .signed
+						!_filteredSignedApps.isEmpty ||
+						!_filteredImportedApps.isEmpty
 					{
-						NBSection(
-							.localized("Signed"),
-							secondary: _filteredSignedApps.count.description
-						) {
-							ForEach(_filteredSignedApps, id: \.uuid) { app in
-								LibraryCellView(
-									app: app,
-									selectedInfoAppPresenting: $_selectedInfoAppPresenting,
-									selectedSigningAppPresenting: $_selectedSigningAppPresenting,
-									selectedInstallAppPresenting: $_selectedInstallAppPresenting
-								)
-								.compatMatchedTransitionSource(id: app.uuid ?? "", ns: _namespace)
+						if
+							_selectedScope == .all ||
+							_selectedScope == .signed
+						{
+							NBSection(
+								.localized("Signed"),
+								secondary: _filteredSignedApps.count.description
+							) {
+								ForEach(_filteredSignedApps, id: \.uuid) { app in
+									LibraryCellView(
+										app: app,
+										highlight: app.uuid == _highlightedUuid,
+										selectedInfoAppPresenting: $_selectedInfoAppPresenting,
+										selectedSigningAppPresenting: $_selectedSigningAppPresenting,
+										selectedInstallAppPresenting: $_selectedInstallAppPresenting
+									)
+									.id(app.uuid ?? "")
+									.compatMatchedTransitionSource(id: app.uuid ?? "", ns: _namespace)
+								}
 							}
 						}
-					}
-					
-					if
-						_selectedScope == .all ||
-							_selectedScope == .imported
-					{
-						NBSection(
-							.localized("Imported"),
-							secondary: _filteredImportedApps.count.description
-						) {
-							ForEach(_filteredImportedApps, id: \.uuid) { app in
-								LibraryCellView(
-									app: app,
-									selectedInfoAppPresenting: $_selectedInfoAppPresenting,
-									selectedSigningAppPresenting: $_selectedSigningAppPresenting,
-									selectedInstallAppPresenting: $_selectedInstallAppPresenting
-								)
-								.compatMatchedTransitionSource(id: app.uuid ?? "", ns: _namespace)
-							}
-						}
-					}
-				}
-			}
-			.searchable(text: $_searchText, placement: .platform())
-			.compatSearchScopes($_selectedScope) {
-				ForEach(Scope.allCases, id: \.displayName) { scope in
-					Text(scope.displayName).tag(scope)
-				}
-			}
-			.scrollDismissesKeyboard(.interactively)
-			.overlay {
-				if
-					_filteredSignedApps.isEmpty,
-					_filteredImportedApps.isEmpty
-				{
-					if #available(iOS 17, *) {
-						ContentUnavailableView {
-							Label(.localized("No Apps"), systemImage: "questionmark.app.fill")
-						} description: {
-							Text(.localized("Get started by importing your first IPA file."))
-						} actions: {
-							Menu {
-								_importActions()
-							} label: {
-								NBButton(.localized("Import"), style: .text)
-							}
-						}
-					}
-				}
-			}
-			.toolbar {
-				NBToolbarMenu(
-					systemImage: "plus",
-					style: .icon,
-					placement: .topBarTrailing
-				) {
-					_importActions()
-				}
-			}
-			.sheet(item: $_selectedInfoAppPresenting) { app in
-				LibraryInfoView(app: app.base)
-			}
-			.sheet(item: $_selectedInstallAppPresenting) { app in
-				InstallPreviewView(app: app.base, isSharing: app.archive)
-					.presentationDetents([.height(200)])
-					.presentationDragIndicator(.visible)
-					.compatPresentationRadius(21)
-			}
-			.fullScreenCover(item: $_selectedSigningAppPresenting) { app in
-				SigningView(app: app.base)
-					.compatNavigationTransition(id: app.base.uuid ?? "", ns: _namespace)
-			}
-			.sheet(isPresented: $_isImportingPresenting) {
-				FileImporterRepresentableView(
-					allowedContentTypes:  [.ipa, .tipa],
-					allowsMultipleSelection: true,
-					onDocumentsPicked: { urls in
-						guard !urls.isEmpty else { return }
 						
-						for url in urls {
-							let id = "FeatherManualDownload_\(UUID().uuidString)"
-							let dl = downloadManager.startArchive(from: url, id: id)
-							try? downloadManager.handlePachageFile(url: url, dl: dl)
+						if
+							_selectedScope == .all ||
+								_selectedScope == .imported
+						{
+							NBSection(
+								.localized("Imported"),
+								secondary: _filteredImportedApps.count.description
+							) {
+								ForEach(_filteredImportedApps, id: \.uuid) { app in
+									LibraryCellView(
+										app: app,
+										highlight: app.uuid == _highlightedUuid,
+										selectedInfoAppPresenting: $_selectedInfoAppPresenting,
+										selectedSigningAppPresenting: $_selectedSigningAppPresenting,
+										selectedInstallAppPresenting: $_selectedInstallAppPresenting
+									)
+									.id(app.uuid ?? "")
+									.compatMatchedTransitionSource(id: app.uuid ?? "", ns: _namespace)
+								}
+							}
 						}
 					}
-				)
-				.ignoresSafeArea()
-			}
-			.alert(.localized("Import from URL"), isPresented: $_isDownloadingPresenting) {
-				TextField(.localized("URL"), text: $_alertDownloadString)
-					.textInputAutocapitalization(.never)
-				Button(.localized("Cancel"), role: .cancel) {
-					_alertDownloadString = ""
 				}
-				Button(.localized("OK")) {
-					if let url = URL(string: _alertDownloadString) {
-						_ = downloadManager.startDownload(from: url, id: "FeatherManualDownload_\(UUID().uuidString)")
+				.searchable(text: $_searchText, placement: .platform())
+				.compatSearchScopes($_selectedScope) {
+					ForEach(Scope.allCases, id: \.displayName) { scope in
+						Text(scope.displayName).tag(scope)
+					}
+				}
+				.scrollDismissesKeyboard(.interactively)
+				.overlay {
+					if
+						_filteredSignedApps.isEmpty,
+						_filteredImportedApps.isEmpty
+					{
+						if #available(iOS 17, *) {
+							ContentUnavailableView {
+								Label(.localized("No Apps"), systemImage: "questionmark.app.fill")
+							} description: {
+								Text(.localized("Get started by importing your first IPA file."))
+							} actions: {
+								Menu {
+									_importActions()
+								} label: {
+									NBButton(.localized("Import"), style: .text)
+								}
+							}
+						}
+					}
+				}
+				.toolbar {
+					NBToolbarMenu(
+						systemImage: "plus",
+						style: .icon,
+						placement: .topBarTrailing
+					) {
+						_importActions()
+					}
+				}
+				.sheet(item: $_selectedInfoAppPresenting) { app in
+					LibraryInfoView(app: app.base)
+				}
+				.sheet(item: $_selectedInstallAppPresenting) { app in
+					InstallPreviewView(app: app.base, isSharing: app.archive)
+						.presentationDetents([.height(200)])
+						.presentationDragIndicator(.visible)
+						.compatPresentationRadius(21)
+				}
+				.fullScreenCover(item: $_selectedSigningAppPresenting) { app in
+					SigningView(app: app.base)
+						.compatNavigationTransition(id: app.base.uuid ?? "", ns: _namespace)
+				}
+				.sheet(isPresented: $_isImportingPresenting) {
+					FileImporterRepresentableView(
+						allowedContentTypes:  [.ipa, .tipa],
+						allowsMultipleSelection: true,
+						onDocumentsPicked: { urls in
+							guard !urls.isEmpty else { return }
+							
+							for url in urls {
+								let id = "FeatherManualDownload_\(UUID().uuidString)"
+								let dl = downloadManager.startArchive(from: url, id: id)
+								try? downloadManager.handlePachageFile(url: url, dl: dl)
+							}
+						}
+					)
+					.ignoresSafeArea()
+				}
+				.alert(.localized("Import from URL"), isPresented: $_isDownloadingPresenting) {
+					TextField(.localized("URL"), text: $_alertDownloadString)
+						.textInputAutocapitalization(.never)
+					Button(.localized("Cancel"), role: .cancel) {
+						_alertDownloadString = ""
+					}
+					Button(.localized("OK")) {
+						if let url = URL(string: _alertDownloadString) {
+							_ = downloadManager.startDownload(from: url, id: "FeatherManualDownload_\(UUID().uuidString)")
+						}
 					}
 				}
 			}
-        }
+			.onReceive(NotificationCenter.default.publisher(for: .featherDidImportApp)) { notification in
+				if let uuid = notification.object as? String {
+					_highlightedUuid = uuid
+					withAnimation {
+						proxy.scrollTo(uuid, anchor: .center)
+					}
+					DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+						_highlightedUuid = nil
+					}
+				}
+			}
+		}
     }
 }
 

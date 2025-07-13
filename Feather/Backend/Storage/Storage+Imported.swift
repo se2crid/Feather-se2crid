@@ -36,6 +36,7 @@ extension Storage {
 		
 		saveContext()
 		generator.impactOccurred()
+		NotificationCenter.default.post(name: .featherDidImportApp, object: uuid)
 		completion(nil)
 	}
 }

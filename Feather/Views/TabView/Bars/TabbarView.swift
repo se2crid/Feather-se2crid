@@ -20,5 +20,8 @@ struct TabbarView: View {
 					.tag(tab)
 			}
 		}
+		.onReceive(NotificationCenter.default.publisher(for: .featherDidImportApp)) { _ in
+			selectedTab = .library
+		}
 	}
 }

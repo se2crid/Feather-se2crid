@@ -22,6 +22,7 @@ struct LibraryCellView: View {
 	}
 	
 	var app: AppInfoPresentable
+	var highlight: Bool = false
 	@Binding var selectedInfoAppPresenting: AnyApp?
 	@Binding var selectedSigningAppPresenting: AnyApp?
 	@Binding var selectedInstallAppPresenting: AnyApp?
@@ -48,6 +49,13 @@ struct LibraryCellView: View {
 				.fill(Color(.quaternarySystemFill))
 			: nil
 		)
+		.overlay(
+			highlight ?
+				RoundedRectangle(cornerRadius: isRegular ? 18 : 0, style: .continuous)
+					.stroke(Color.accentColor, lineWidth: 3)
+			: nil
+		)
+		.animation(.easeInOut(duration: 0.2), value: highlight)
 		.swipeActions {
 			_actions(for: app)
 		}
