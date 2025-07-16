@@ -21,21 +21,27 @@ struct SigningAlternativeIconView: View {
 	// MARK: Body
 	var body: some View {
 		NBNavigationView(.localized("Alternative Icons"), displayMode: .inline) {
-			List {
+			VStack {
 				if !_alternateIcons.isEmpty {
-					ForEach(_alternateIcons, id: \.name) { icon in
-						Button {
-							appIcon = _iconUrl(icon.path)
-							dismiss()
-						} label: {
-							_icon(icon)
+					NBSection(.localized("Choose an Icon"), systemName: "app.dashed") {
+						NBGrid {
+							ForEach(_alternateIcons, id: \.name) { icon in
+								Button {
+									appIcon = _iconUrl(icon.path)
+									dismiss()
+								} label: {
+									_iconGridCell(icon)
+								}
+								.disabled(!isModifing)
+							}
 						}
-						.disabled(!isModifing)
 					}
 				} else {
+					Spacer()
 					Text(.localized("No Icons Found."))
 						.font(.footnote)
 						.foregroundColor(.disabled())
+					Spacer()
 				}
 			}
 			.onAppear(perform: _loadAlternateIcons)
@@ -51,18 +57,23 @@ struct SigningAlternativeIconView: View {
 // MARK: - Extension: View
 extension SigningAlternativeIconView {
 	@ViewBuilder
-	private func _icon(_ icon: (name: String, path: String)) -> some View {
-		HStack(spacing: 12) {
-			if let image = _iconUrl(icon.path) {
-				Image(uiImage: image)
-					.appIconStyle(size: 32)
+	private func _iconGridCell(_ icon: (name: String, path: String)) -> some View {
+		VStack(spacing: 8) {
+			ZStack {
+				if let image = _iconUrl(icon.path) {
+					Image(uiImage: image)
+						.appIconStyle(size: 56)
+						.overlay(
+							RoundedRectangle(cornerRadius: 12)
+								.stroke(appIcon?.pngData() == image.pngData() ? Color.accentColor : Color.clear, lineWidth: 3)
+						)
+				}
 			}
-			
 			Text(icon.name)
-				.font(.headline)
+				.font(.caption)
 				.foregroundColor(.primary)
 		}
-		.padding(.vertical, 4)
+		.padding(8)
 	}
 	
 	
