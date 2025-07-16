@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NimbleViews
+import OSLog
 
 // MARK: - View extension: Model
 extension AppIconView {
@@ -76,8 +77,14 @@ extension AppIconView {
 		icon: AppIconView.AltIcon
 	) -> some View {
 		Button {
-			UIApplication.shared.setAlternateIconName(icon.key) { _ in
-				currentIcon = UIApplication.shared.alternateIconName
+			Task {
+				do {
+					try await UIApplication.shared.setAlternateIconName(icon.key)
+					currentIcon = UIApplication.shared.alternateIconName
+				} catch {
+					// If switching fails, keep the current selection unchanged.
+					Logger.misc.error("App icon switch failed: \(error.localizedDescription)")
+				}
 			}
 		} label: {
 			HStack(spacing: 18) {
