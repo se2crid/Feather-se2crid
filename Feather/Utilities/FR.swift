@@ -19,20 +19,31 @@ enum FR {
 		completion: @escaping (Error?) -> Void
 	) {
 		Task.detached {
+			BackgroundTaskManager.shared.begin()
+
 			let handler = AppFileHandler(file: ipa, download: download)
-			
+
 			do {
 				try await handler.copy()
+				BackgroundTaskManager.shared.ping()
+
 				try await handler.extract()
+				BackgroundTaskManager.shared.ping()
+
 				try await handler.move()
+				BackgroundTaskManager.shared.ping()
+
 				try await handler.addToDatabase()
 				try? await handler.clean()
+
 				await MainActor.run {
+					BackgroundTaskManager.shared.end()
 					completion(nil)
 				}
 			} catch {
 				try? await handler.clean()
 				await MainActor.run {
+					BackgroundTaskManager.shared.end()
 					completion(error)
 				}
 			}
@@ -155,23 +166,28 @@ enum FR {
 		competion: @escaping () -> Void
 	) {
 		guard let url = URL(string: urlString) else { return }
-		
+
+		BackgroundTaskManager.shared.begin()
+
 		NBFetchService().fetch<ASRepository>(from: url) { (result: Result<ASRepository, Error>) in
 			switch result {
 			case .success(let data):
 				let id = data.id ?? url.absoluteString
-				
+
 				if !Storage.shared.sourceExists(id) {
 					Storage.shared.addSource(url, repository: data, id: id) { _ in
+						BackgroundTaskManager.shared.end()
 						competion()
 					}
 				} else {
 					DispatchQueue.main.async {
+						BackgroundTaskManager.shared.end()
 						UIAlertController.showAlertWithOk(title: .localized("Error"), message: .localized("Repository already added."))
 					}
 				}
 			case .failure(let error):
 				DispatchQueue.main.async {
+					BackgroundTaskManager.shared.end()
 					UIAlertController.showAlertWithOk(title: .localized("Error"), message: error.localizedDescription)
 				}
 			}

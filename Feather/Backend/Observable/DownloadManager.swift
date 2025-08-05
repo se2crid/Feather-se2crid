@@ -164,13 +164,15 @@ extension DownloadManager: URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         guard let download = getDownloadTask(by: downloadTask) else { return }
-        
+
         DispatchQueue.main.async {
             download.progress = totalBytesExpectedToWrite > 0
 			? Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
 			: 0
             download.bytesDownloaded = totalBytesWritten
             download.totalBytes = totalBytesExpectedToWrite
+
+			BackgroundTaskManager.shared.ping()
         }
     }
     

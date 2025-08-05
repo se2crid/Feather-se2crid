@@ -46,13 +46,19 @@ final class ArchiveHandler: NSObject {
 	
 	func archive() async throws -> URL {
 		return try await Task.detached(priority: .background) { [self] in
+			BackgroundTaskManager.shared.begin()
+
+			defer {
+				BackgroundTaskManager.shared.end()
+			}
+
 			guard let payloadUrl = await self._payloadUrl else {
 				throw SigningFileHandlerError.appNotFound
 			}
-			
+
 			let zipUrl = self._uniqueWorkDir.appendingPathComponent("Archive.zip")
 			let ipaUrl = self._uniqueWorkDir.appendingPathComponent("Archive.ipa")
-			
+
 			try await Zip.zipFiles(
 				paths: [payloadUrl],
 				zipFilePath: zipUrl,
@@ -62,8 +68,9 @@ final class ArchiveHandler: NSObject {
 					Task { @MainActor in
 						self.viewModel.packageProgress = progress
 					}
+					BackgroundTaskManager.shared.ping()
 				})
-			
+
 			try FileManager.default.moveItem(at: zipUrl, to: ipaUrl)
 			return ipaUrl
 		}.value
