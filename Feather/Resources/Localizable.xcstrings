@@ -357,7 +357,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%lld gerekli sistem dylib kütüphanesi gösterilmiyor."
           }
         },
@@ -617,6 +617,12 @@
             "value" : "O %@"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Hakkında"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -768,6 +774,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dodaje duże pole opisu aplikacji."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulamanın yerelleştirilmiş açıklamasını ekler."
           }
         },
         "vi" : {
@@ -937,8 +949,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Feather’ın tüm dosyaları “Belgeler” klasöründe yer almaktadır. Yukarıda yer alan bağlantılar ile bunlardan bazılarına erişebilirsiniz."
+            "state" : "translated",
+            "value" : "Tüm dosyalar “Belgeler” klasöründe yer almaktadır. Yukarıda yer alan bağlantılar ile bunlardan bazılarına erişebilirsiniz."
           }
         },
         "vi" : {
@@ -1176,6 +1188,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ikona aplikacji"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulama Simgesi"
           }
         },
         "vi" : {
@@ -1462,6 +1480,12 @@
             "value" : "Najlepszy"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En İyi"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1562,6 +1586,12 @@
             "value" : "Zgłoś błąd"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hata Raporu"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1648,6 +1678,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Domyślnie tłumaczone tytuły aplikacji nie będą zmieniane, jednak ta opcja to nadpisuje."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varsayılan olarak, uygulamanın yerelleştirilmiş başlıkları değiştirilmeyecektir, ancak bu seçenek bunu geçersiz kılar."
           }
         },
         "vi" : {
@@ -1742,6 +1778,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kategoria"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kategori"
           }
         },
         "vi" : {
@@ -1957,6 +1999,12 @@
             "value" : "Sprawdź czy odwołany"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İptal Kontrolü"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2153,6 +2201,12 @@
             "value" : "Zakończono"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tamamlandı"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2240,6 +2294,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Skonfiguruj sposób instalacji aplikacji, poziom kompresji ZIP i niestandardowe modyfikacje aplikacji."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulamaların kurulum şeklini, paket sıkıştırma seviyelerini ve uygulamalara özel değişiklikleri yapılandırın."
           }
         },
         "vi" : {
@@ -2346,6 +2406,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kopiuj URL do pobrania"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İndirme URL’sini Kopyala"
           }
         },
         "vi" : {
@@ -2496,6 +2562,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ciemny"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koyu"
           }
         },
         "vi" : {
@@ -2722,6 +2794,12 @@
             "value" : "Domyślny styl aplikacji, zawiera tylko fragment opisu."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulama için yalnızca alt başlık içeren saptanmış stil."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2828,6 +2906,12 @@
             "value" : "Usuń po podpisaniu"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İmzaladıktan Sonra Sil"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2851,6 +2935,12 @@
             "value" : "Opis"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Açıklama"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2872,6 +2962,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Developer"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geliştirici"
           }
         },
         "vi" : {
@@ -3063,6 +3159,12 @@
             "value" : "Czy chcesz wyeksportować swój certyfikat do zewnętrznej aplikacji? Ta aplikacja będzie mogła podpisywać aplikacje za pomocą Twojego certyfikatu."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikanızı harici bir uygulamaya aktarmak ister misiniz? Aktardığınız uygulama, sertifikanızı kullanarak uygulamaları imzalayabilir."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3248,6 +3350,12 @@
             "value" : "Pobierz StosVPN"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "StosVPN’i İndir"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3343,6 +3451,12 @@
             "value" : "Włącz Liquid Glass"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liquid Glass’ı Etkinleştir"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3430,6 +3544,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Podoba Ci się %@?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@’ı Beğeniyor Musunuz?"
           }
         },
         "vi" : {
@@ -3591,6 +3711,12 @@
             "value" : "Podaj adres"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaynak URL’sini Girin"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3750,6 +3876,12 @@
             "value" : "Błąd"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hata"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3889,6 +4021,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eksperymentalne"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deneysel Özellikler"
           }
         },
         "vi" : {
@@ -4092,6 +4230,12 @@
             "value" : "Eksportuj certyfikat"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikayı Dışa Aktar"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4178,6 +4322,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Polecane"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öne Çıkan"
           }
         },
         "vi" : {
@@ -4646,6 +4796,12 @@
             "value" : "Tryb Gry"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oyun Modu"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4726,6 +4882,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pobierz"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İndir"
           }
         },
         "vi" : {
@@ -4870,6 +5032,12 @@
             "value" : "Zacznij od dodania pierwszego repozytorium."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk deponuzu ekleyerek başlayın."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4905,6 +5073,12 @@
             "value" : "Zacznij od importu Twojego pierwszego pliku IPA."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk IPA dosyanızı içe aktararak başlayın."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4938,6 +5112,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rozpocznij podpisywanie od zaimportowania pierwszego certyfikatu."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk sertifikanızı içe aktararak imzalamaya başlayın."
           }
         },
         "vi" : {
@@ -5044,6 +5224,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Odwiedź nasze GitHub i zostaw gwiazdkę!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub’a giderek depomuzu yıldızlayın!"
           }
         },
         "vi" : {
@@ -5445,6 +5631,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Jeśli wystąpią jakiekolwiek problemy w aplikacji, zgłoś je za pośrednictwem repozytorium GitHub. Podczas zgłaszania problemu upewnij się, że podajesz szczegółowe informacje."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulamada herhangi bir sorun oluşursa, lütfen GitHub deposu üzerinden bildirin. Sorun bildirirken, ayrıntılı bilgi verdiğinizden emin olun."
           }
         },
         "vi" : {
@@ -5909,6 +6101,12 @@
             "value" : "Informacje"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilgi"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5950,6 +6148,12 @@
             "value" : "Folder iniekcji"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enjeksiyon Klasörü"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5989,6 +6193,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ścieżka iniekcji"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enjeksiyon Yolu"
           }
         },
         "vi" : {
@@ -6097,6 +6307,12 @@
             "value" : "Instalacja"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurulum"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6183,6 +6399,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Instalowanie"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yükleniyor"
           }
         },
         "vi" : {
@@ -6333,6 +6555,12 @@
             "value" : "Dowiedz się więcej o tym, jak skonfigurować repozytorium..."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depo kurulumu hakkında daha fazlasını öğrenin…"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6354,6 +6582,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mniej"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha Az"
           }
         },
         "vi" : {
@@ -6496,6 +6730,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Jasny"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Açık"
           }
         },
         "vi" : {
@@ -6679,6 +6919,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Więcej"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha Fazla"
           }
         },
         "vi" : {
@@ -6959,6 +7205,12 @@
             "value" : "Brak aplikacji"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulama Yok"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7047,6 +7299,12 @@
             "value" : "Brak certyfikatów"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifika Yok"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7068,6 +7326,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Brak uprawnień do wyświetlenia."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiçbir yetkilendirme listelenmedi."
           }
         },
         "vi" : {
@@ -7111,6 +7375,12 @@
             "value" : "Nie wybrano plików."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiçbir Dosya seçilmedi."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7146,6 +7416,12 @@
             "value" : "Nie znaleziono żadnych bibliotek ani wtyczek."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiçbir Framework ya da Eklenti Bulunamadı."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7179,6 +7455,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nie znaleziono żadnych ikon"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiçbir Simge Bulunamadı."
           }
         },
         "vi" : {
@@ -7251,6 +7533,12 @@
             "value" : "Brak wymienionych uprawnień prywatności."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiçbir Gizlilik İzni Listelenmedi."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7286,6 +7574,12 @@
             "value" : "Brak Repozytoriów"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depor Yok"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7319,6 +7613,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Brak"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiçbiri"
           }
         },
         "vi" : {
@@ -7531,6 +7831,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Otwórz [issue](https://github.com/khcrysalis/Feather/issues) na GitHubie, jeśli chcesz, aby Twoje źródło zostało wyróżnione."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaynağınızın öne çıkarılmasını istiyorsanız GitHub’da bir [sorun kaydı](https://github.com/khcrysalis/Feather/issues) açın."
           }
         },
         "vi" : {
@@ -7792,6 +8098,12 @@
             "value" : "Inne"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diğer"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7825,6 +8137,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tworzenie paczki"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paketleme"
           }
         },
         "vi" : {
@@ -7972,6 +8290,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pozwolenia"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İzinler"
           }
         },
         "vi" : {
@@ -8187,6 +8511,12 @@
             "value" : "Po podpisaniu"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İmzalama Sonrası"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8267,6 +8597,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Weryfikacja PPQ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PPQCheck"
           }
         },
         "vi" : {
@@ -8386,6 +8722,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Przystąp"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Devam Et"
           }
         },
         "vi" : {
@@ -8693,6 +9035,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gotowe"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hazır"
           }
         },
         "vi" : {
@@ -9054,6 +9402,12 @@
             "value" : "Usunięcie pliku provisioning spowoduje, że plik mobileprovision nie będzie osadzony w aplikacji podczas podpisywania, co zapobiegnie jakiemukolwiek wykryciu."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hazırlık profilinin kaldırılması imzalama sırasında “mobileprovision” dosyasının uygulamaya dahil edilmemesini sağlayarak herhangi bir tespitin önlenmesine yardımcı olur. "
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9087,6 +9441,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zastąp Substrate przez ElleKit"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Substrate yerine ElleKit kullan"
           }
         },
         "vi" : {
@@ -9236,6 +9596,12 @@
             "value" : "Repozytorium jest obecnie dodane."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depo zaten eklendi."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9342,6 +9708,12 @@
             "value" : "Resetuj wszystko"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tümünü Sıfırla"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9375,6 +9747,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Resetuj certyfikaty"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sertifikaları Sıfırla"
           }
         },
         "vi" : {
@@ -9412,6 +9790,12 @@
             "value" : "Resetuj zaimportowane aplikacje"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İçe Aktarılan Uygulamaları Sıfırla"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9445,6 +9829,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Resetuj pamięć podręczną sieci"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ağ Önbelleğini Sıfırla"
           }
         },
         "vi" : {
@@ -9482,6 +9872,12 @@
             "value" : "Resetuj ustawienia"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayarları Sıfırla"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9515,6 +9911,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Resetuj podpisane aplikacje"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İmzalanan Uygulamaları Sıfırla"
           }
         },
         "vi" : {
@@ -9552,6 +9954,12 @@
             "value" : "Resetuj źródła"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaynakları Sıfırla"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9587,6 +9995,12 @@
             "value" : "Zresetuj źródła aplikacji, certyfikaty, aplikacje i ogólną zawartość."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulama kaynaklarını, sertifikaları, uygulamaları ve genel içerikleri sıfırlayın."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9620,6 +10034,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zresetuj pamięć podręczną"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çalışma Önbelleğini Sıfırla"
           }
         },
         "vi" : {
@@ -9751,6 +10171,12 @@
             "value" : "Odwołany"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İptal Edilmiş"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9837,6 +10263,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zrzuty ekranu"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekran Görüntüleri"
           }
         },
         "vi" : {
@@ -10142,6 +10574,12 @@
             "value" : "Wysyłanie manifestu"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildiri Gönderiliyor"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10175,6 +10613,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wysyłanie ładunku"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veri Gönderiliyor"
           }
         },
         "vi" : {
@@ -10212,6 +10656,12 @@
             "value" : "Serwer"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunucu"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10245,6 +10695,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Serwer (zalecane):\nUżywa lokalnie hostowanego serwera i itms-services:// do instalowania aplikacji.\n\nIDevice (zaawansowane):\nUżywa VPN i pliku parowania. Zapisuje do AFC i ręcznie wywołuje installd, monitorując postęp instalacji przez callback.\nZaleta: Jest bardzo niezawodny, nie wymaga certyfikatów SSL ani zewnętrznego serwera. Działa podobnie do komputera."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunucu (Önerilen):\nUygulamaları yüklemek için yerel olarak barındırılan bir sunucu ve itms-services:// kullanır.\n\nIDevice (Gelişmiş):\nBir VPN ve eşleştirme dosyası kullanır. Kurulum AFC aracılığıyla gerçekleştirilir ve ilerleme izlenebilir.\nAvantajı: Çok güvenilirdir, SSL sertifikalarına veya harici olarak barındırılan bir sunucuya ihtiyaç duymaz. Aksine, bir bilgisayara benzer şekilde çalışır."
           }
         },
         "vi" : {
@@ -10333,6 +10789,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Typ serwera"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunucu Türü"
           }
         },
         "vi" : {
@@ -10820,6 +11282,12 @@
             "value" : "Typ podpisu"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İmzalama Türü"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10843,6 +11311,12 @@
             "value" : "Rozmiar"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boyut"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10864,6 +11338,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Źródło"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaynak"
           }
         },
         "vi" : {
@@ -10915,8 +11395,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Kaynak Depo URL’si"
+            "state" : "translated",
+            "value" : "Kaynak URL’si"
           }
         },
         "vi" : {
@@ -11018,6 +11498,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Prędkość"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hız"
           }
         },
         "vi" : {
@@ -11482,7 +11968,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "KravaSign/MapleSign ve ESign’den içe aktarmayı destekler"
           }
         },
@@ -11680,6 +12166,12 @@
             "value" : "Jedynymi obsługiwanymi repozytoriami są repozytoria AltStore."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yalnızca AltStore depoları desteklenmektedir."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11713,6 +12205,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Motyw"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tema"
           }
         },
         "vi" : {
@@ -11802,6 +12300,12 @@
             "value" : "Tej czynności nie można cofnąć. Czy chcesz kontynuować?"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu eylem geri alınamaz. Devam etmek istiyor musunuz?"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11823,6 +12327,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Umożliwia ustawienie reguł automatycznej zamiany identyfikatora pakietu/wyświetlanej nazwy podczas podpisywania aplikacji."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu, uygulamaları imzalarken otomatik olarak paket kimliği ya da görünen adı değiştirmenize yardımcı olan kurallar koymanızı sağlar."
           }
         },
         "vi" : {
@@ -11860,6 +12370,12 @@
             "value" : "Włącza liquid glass dla tej aplikacji. Wymaga ponownego uruchomienia, aby zmiany zostały zastosowane."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu, Liquid Glass arayüzünü etkinleştirir. Değişikliklerin etkili olabilmesi için uygulamanın yeniden başlatılması gereklidir."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11895,6 +12411,12 @@
             "value" : "Ta opcja wymusza konwersję aplikacji na nowy wygląd liquid glass wprowadzony w iOS 26. Może nie działać ze wszystkimi aplikacjami z powodu różnych frameworków."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu seçenek, uygulamaları iOS 26'da tanıtılan yeni Liquid Glass arayüzünü kullanmaya zorlar. Farklı Framework’ler nedeniyle bu, tüm uygulamalarda işe yaramayabilir."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11928,6 +12450,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spowoduje to usunięcie zaimportowanej aplikacji po jej podpisaniu, co pozwoli zwolnić miejsce."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu, imzaladıktan sonra içe aktarılan uygulamayı silerek gereksiz alanı geri kazanmanıza yardımcı olur."
           }
         },
         "vi" : {
@@ -12226,6 +12754,12 @@
             "value" : "Zaktualizowano"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güncellendi"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12289,6 +12823,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Źródłowa wartość"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Değer"
           }
         },
         "vi" : {
@@ -12380,6 +12920,12 @@
             "value" : "Wersja %@"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüm %@"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12401,6 +12947,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Historia wersji"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüm Geçmişi"
           }
         },
         "vi" : {
@@ -12588,6 +13140,12 @@
             "value" : "Co nowego"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neler Yeni"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12629,6 +13187,12 @@
             "value" : "Nie można zaktualizować „%@” przy jego użyciu. Użyj innego narzędzia do aktualizacji."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@’ı kendisi üzerinden güncelleyemezsiniz. Lütfen güncelleme için alternatif bir araç kullanın."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12662,6 +13226,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Twój plik parowania jest nieprawidłowy i niekompatybilny z urządzeniem. Zaimportuj poprawny plik."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eşleştirme dosyanız geçersiz ve cihazınızla uyumlu değil, lütfen geçerli bir eşleştirme dosyası içe aktarın."
           }
         },
         "vi" : {
