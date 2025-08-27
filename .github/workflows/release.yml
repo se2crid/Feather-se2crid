@@ -2,6 +2,11 @@ name: Create New Release
 
 on:
   workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Build type: distribution or nightly'
+        required: false
+        default: 'distribution'
 
 jobs:
   build:
@@ -17,11 +22,36 @@ jobs:
           sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
 
       - name: Compile Feather
+        env:
+          BUILD_TYPE: ${{ github.event.inputs.build_type || 'distribution' }}
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: ${{ github.event.inputs.build_type == 'nightly' && 'NIGHTLY' || '' }}
         run: | 
           agvtool new-version -all $(git rev-parse HEAD)
-          make
-          mkdir upload
-          mv packages/* upload/
+          if [ "$BUILD_TYPE" = "nightly" ]; then
+            echo "Building NIGHTLY build (defining NIGHTLY compilation flag)"
+            # override Makefile by invoking xcodebuild directly with NIGHTLY definition
+            xcodebuild \
+              -project Feather.xcodeproj \
+              -scheme Feather \
+              -configuration Release \
+              -arch arm64 \
+              -sdk iphoneos \
+              -derivedDataPath $TMPDIR/feather \
+              -skipPackagePluginValidation \
+              CODE_SIGNING_ALLOWED=NO \
+              ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=NO \
+              SWIFT_ACTIVE_COMPILATION_CONDITIONS=$SWIFT_ACTIVE_COMPILATION_CONDITIONS
+            mkdir -p upload
+            APP="$TMPDIR/feather/Build/Products/Release-iphoneos/Feather.app"
+            mkdir -p Payload
+            rm -rf Payload || true
+            cp -R "$APP" Payload/Feather.app
+            zip -r9 "upload/Feather-nightly-$(git rev-parse --short HEAD).ipa" Payload
+          else
+            make
+            mkdir upload
+            mv packages/* upload/
+          fi
 
       - name: Get Version
         id: get_version
