@@ -147,18 +147,21 @@ struct SourcesAddView: View {
 		competion: @escaping () -> Void
 	) {
 		guard let code else { return }
-		
+
 		let handler = ASDeobfuscator(with: code)
 		let repoUrls = handler.decode().compactMap { URL(string: $0) }
 		guard !repoUrls.isEmpty else { return }
-		
+
 		Task {
+			BackgroundTaskManager.shared.begin()
+
 			let fetched = await _concurrentFetchRepositories(from: repoUrls)
-			
+
 			let dict = Dictionary(fetched, uniquingKeysWith: { first, _ in first })
 
 			await MainActor.run {
 				Storage.shared.addSources(repos: dict) { _ in
+					BackgroundTaskManager.shared.end()
 					competion()
 				}
 			}
@@ -182,6 +185,7 @@ struct SourcesAddView: View {
 								Task { @MainActor in
 									results.append((url: url, data: repo))
 								}
+								BackgroundTaskManager.shared.ping()
 							case .failure(let error):
 								Logger.misc.error("Failed to fetch \(url): \(error.localizedDescription)")
 							}

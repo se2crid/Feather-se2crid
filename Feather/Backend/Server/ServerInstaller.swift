@@ -63,12 +63,14 @@ class ServerInstaller: Identifiable, ObservableObject {
 				guard let packageUrl = packageUrl else {
 					return Response(status: .notFound)
 				}
-				
+
 				self._updateStatus(.sendingPayload)
-				
+				BackgroundTaskManager.shared.begin()
+
 				return req.fileio.streamFile(
 					at: packageUrl.path
 				) { result in
+					BackgroundTaskManager.shared.end()
 					self._updateStatus(.completed(result))
 				}
 			case "/install":
