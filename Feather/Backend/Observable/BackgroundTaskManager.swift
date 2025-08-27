@@ -113,8 +113,9 @@ final class BackgroundTaskManager: ObservableObject {
 		engine.connect(silentNode, to: output, format: format)
 
 		do {
+			// Use ambient so the app's silent audio mixes with other apps' audio and does not interrupt them.
 			try AVAudioSession.sharedInstance().setCategory(
-				.playback,
+				.ambient,
 				mode: .default,
 				options: [.mixWithOthers]
 			)
@@ -133,7 +134,8 @@ final class BackgroundTaskManager: ObservableObject {
 		audioEngine = nil
 
 		do {
-			try AVAudioSession.sharedInstance().setActive(false)
+			// Deactivate and notify others so external audio can resume when we stop.
+			try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
 		} catch {
 			logger.error("Failed to deactivate audio session: \(error.localizedDescription)")
 		}
