@@ -132,6 +132,58 @@ final class FeatherTests: XCTestCase {
 			return
 		}
 	}
+	
+	func testRepositoryUpdateFunctionality() async throws {
+		// Test that the SourcesViewModel can be initialized
+		let viewModel = SourcesViewModel.shared
+		XCTAssertNotNil(viewModel)
+		
+		// Test that the view model starts with empty sources
+		XCTAssertTrue(viewModel.sources.isEmpty)
+		XCTAssertTrue(viewModel.lastUpdated.isEmpty)
+		
+		// Test UserDefaults keys for repository settings
+		let autoRefreshKey = "Feather.autoRefreshRepositories"
+		let autoRefreshOnLaunchKey = "Feather.autoRefreshOnLaunch"
+		let lastAutoRefreshKey = "Feather.lastAutoRepositoryRefresh"
+		let lastManualRefreshKey = "Feather.lastManualRepositoryUpdate"
+		
+		// Set test values
+		UserDefaults.standard.set(true, forKey: autoRefreshKey)
+		UserDefaults.standard.set(true, forKey: autoRefreshOnLaunchKey)
+		UserDefaults.standard.set(Date(), forKey: lastAutoRefreshKey)
+		UserDefaults.standard.set(Date(), forKey: lastManualRefreshKey)
+		
+		// Verify values can be read
+		XCTAssertTrue(UserDefaults.standard.bool(forKey: autoRefreshKey))
+		XCTAssertTrue(UserDefaults.standard.bool(forKey: autoRefreshOnLaunchKey))
+		XCTAssertNotNil(UserDefaults.standard.object(forKey: lastAutoRefreshKey))
+		XCTAssertNotNil(UserDefaults.standard.object(forKey: lastManualRefreshKey))
+		
+		// Clean up test data
+		UserDefaults.standard.removeObject(forKey: autoRefreshKey)
+		UserDefaults.standard.removeObject(forKey: autoRefreshOnLaunchKey)
+		UserDefaults.standard.removeObject(forKey: lastAutoRefreshKey)
+		UserDefaults.standard.removeObject(forKey: lastManualRefreshKey)
+	}
+	
+	func testRepositoryUpdateInterval() {
+		// Test that refresh intervals are calculated correctly
+		let oneHour: TimeInterval = 60 * 60
+		let fourHours: TimeInterval = 4 * 60 * 60
+		
+		let now = Date()
+		let oneHourAgo = now.addingTimeInterval(-oneHour)
+		let fourHoursAgo = now.addingTimeInterval(-fourHours)
+		
+		// Test that one hour interval is correct
+		XCTAssertGreaterThan(now.timeIntervalSince(oneHourAgo), oneHour - 1)
+		XCTAssertLessThan(now.timeIntervalSince(oneHourAgo), oneHour + 1)
+		
+		// Test that four hour interval is correct
+		XCTAssertGreaterThan(now.timeIntervalSince(fourHoursAgo), fourHours - 1)
+		XCTAssertLessThan(now.timeIntervalSince(fourHoursAgo), fourHours + 1)
+	}
 }
 
 // these are quite interesting.

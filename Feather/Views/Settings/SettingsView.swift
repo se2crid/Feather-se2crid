@@ -54,6 +54,14 @@ struct SettingsView: View {
                     Text(.localized("Configure the apps way of installing, its zip compression levels, and custom modifications to apps."))
                 }
                 
+                NBSection(.localized("Repositories")) {
+                    NavigationLink(destination: RepositorySettingsView()) {
+                        Label(.localized("Repository Settings"), systemImage: "globe")
+                    }
+                } footer: {
+                    Text(.localized("Configure automatic repository updates and refresh settings."))
+                }
+                
                 _directories()
                 
                 Section {

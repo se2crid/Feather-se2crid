@@ -12,18 +12,33 @@ import NukeUI
 // MARK: - View
 struct SourcesCellView: View {
 	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	@ObservedObject var viewModel = SourcesViewModel.shared
 	
 	var source: AltSource
 	
 	// MARK: Body
 	var body: some View {
 		let isRegular = horizontalSizeClass != .compact
+		let lastUpdatedText = _getLastUpdatedText()
 		
-		FRIconCellView(
-			title: source.name ?? .localized("Unknown"),
-			subtitle: source.sourceURL?.absoluteString ?? "",
-			iconUrl: source.iconURL
-		)
+		VStack(alignment: .leading, spacing: 0) {
+			FRIconCellView(
+				title: source.name ?? .localized("Unknown"),
+				subtitle: source.sourceURL?.absoluteString ?? "",
+				iconUrl: source.iconURL
+			)
+			
+			if !lastUpdatedText.isEmpty {
+				HStack {
+					Text(.localized("Updated: \(lastUpdatedText)"))
+						.font(.caption2)
+						.foregroundColor(.secondary)
+					Spacer()
+				}
+				.padding(.leading, 74) // Align with subtitle text
+				.padding(.top, 2)
+			}
+		}
 		.padding(isRegular ? 12 : 0)
 		.background(
 			isRegular
@@ -40,6 +55,17 @@ struct SourcesCellView: View {
 			Divider()
 			_actions(for: source)
 		}
+	}
+	
+	private func _getLastUpdatedText() -> String {
+		guard let identifier = source.identifier,
+			  let lastUpdated = viewModel.lastUpdated[identifier] else {
+			return ""
+		}
+		
+		let formatter = RelativeDateTimeFormatter()
+		formatter.unitsStyle = .short
+		return formatter.localizedString(for: lastUpdated, relativeTo: Date())
 	}
 }
 

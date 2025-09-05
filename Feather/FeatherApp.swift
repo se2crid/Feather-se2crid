@@ -44,6 +44,9 @@ struct FeatherApp: App {
 				}
 				
 				UIApplication.topViewController()?.view.window?.tintColor = UIColor(Color(hex: UserDefaults.standard.string(forKey: "Feather.userTintColor") ?? "#B496DC"))
+				
+				// Automatically refresh repositories on app launch
+				_refreshRepositoriesOnLaunch()
 			}
 		}
 	}
@@ -138,6 +141,30 @@ struct FeatherApp: App {
 				}
 				
 				return
+			}
+		}
+	}
+	
+	/// Automatically refresh repositories on app launch if enough time has passed
+	private func _refreshRepositoriesOnLaunch() {
+		Task {
+			// Check if auto-refresh on launch is enabled
+			let autoRefreshOnLaunch = UserDefaults.standard.object(forKey: "Feather.autoRefreshOnLaunch") as? Bool ?? true
+			guard autoRefreshOnLaunch else { return }
+			
+			// Get the last refresh time from UserDefaults
+			let lastRefreshKey = "Feather.lastAutoRepositoryRefresh"
+			let lastRefresh = UserDefaults.standard.object(forKey: lastRefreshKey) as? Date ?? Date.distantPast
+			
+			// Only auto-refresh if more than 1 hour has passed since last refresh
+			let refreshInterval: TimeInterval = 60 * 60 // 1 hour
+			if Date().timeIntervalSince(lastRefresh) > refreshInterval {
+				// Update the last refresh time
+				UserDefaults.standard.set(Date(), forKey: lastRefreshKey)
+				
+				// Trigger repository refresh in the background
+				print("Auto-refreshing repositories on app launch")
+				await SourcesViewModel.shared.refreshAllRepositories()
 			}
 		}
 	}
