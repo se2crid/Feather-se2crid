@@ -30,7 +30,7 @@ struct SourcesCellView: View {
 			
 			if !lastUpdatedText.isEmpty {
 				HStack {
-					Text(.localized("Updated: \(lastUpdatedText)"))
+					Text("Updated: \(lastUpdatedText)")
 						.font(.caption2)
 						.foregroundColor(.secondary)
 					Spacer()
