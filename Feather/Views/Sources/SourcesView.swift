@@ -19,6 +19,7 @@ struct SourcesView: View {
 	@StateObject var viewModel = SourcesViewModel.shared
 	@State private var _isAddingPresenting = false
 	@State private var _addingSourceLoading = false
+	@State private var _isUpdatingAll = false
 	@State private var _searchText = ""
 	
 	private var _filteredSources: [AltSource] {
@@ -94,10 +95,19 @@ struct SourcesView: View {
 			}
 			.toolbar {
 				NBToolbarButton(
+					systemImage: "arrow.clockwise",
+					style: .icon,
+					placement: .topBarLeading,
+					isDisabled: _isUpdatingAll || _addingSourceLoading
+				) {
+					_updateAllRepositories()
+				}
+				
+				NBToolbarButton(
 					systemImage: "plus",
 					style: .icon,
 					placement: .topBarTrailing,
-					isDisabled: _addingSourceLoading
+					isDisabled: _addingSourceLoading || _isUpdatingAll
 				) {
 					_isAddingPresenting = true
 				}
@@ -130,5 +140,17 @@ struct SourcesView: View {
 			)
 		}
 		#endif
+	}
+	
+	/// Manually update all repositories
+	private func _updateAllRepositories() {
+		_isUpdatingAll = true
+		Task {
+			await viewModel.refreshAllRepositories()
+			
+			await MainActor.run {
+				_isUpdatingAll = false
+			}
+		}
 	}
 }
