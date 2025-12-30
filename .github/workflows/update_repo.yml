@@ -4,8 +4,12 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   build:
+    if: startsWith(github.event.release.tag_name, 'nightly-')
     runs-on: macos-15
     steps:
       - name: Checkout

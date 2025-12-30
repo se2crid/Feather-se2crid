@@ -6,12 +6,21 @@ handle_error() {
   exit 1
 }
 
-echo "Fetching latest release data from GitHub..."
-release_info=$(curl -s https://api.github.com/repos/khcrysalis/Feather/releases/latest)
+echo "Fetching release data from GitHub..."
+if [ -n "$GITHUB_EVENT_PATH" ] && [ -f "$GITHUB_EVENT_PATH" ]; then
+  release_info=$(jq -c '.release // empty' "$GITHUB_EVENT_PATH")
+else
+  repo="${GITHUB_REPOSITORY:-khcrysalis/Feather}"
+  release_info=$(curl -s "https://api.github.com/repos/${repo}/releases/latest")
+fi
+
+if [ -z "$release_info" ] || [ "$release_info" = "null" ]; then
+  handle_error "Release data is missing."
+fi
 clean_release_info=$(echo "$release_info" | tr -d '\000-\037')
 
 updated_at=$(echo "$clean_release_info" | jq -r '.published_at // .created_at // empty')
-version=$(echo "$clean_release_info" | jq -r '.tag_name | .[1:] // empty')
+version=$(echo "$clean_release_info" | jq -r '.tag_name // empty | sub("^v"; "")')
 
 echo "Release version: $version"
 echo "Updated at: $updated_at"
