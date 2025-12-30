@@ -4,8 +4,12 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   build:
+    if: startsWith(github.event.release.tag_name, 'nightly-')
     runs-on: macos-15
     steps:
       - name: Checkout
@@ -21,3 +25,9 @@ jobs:
           default_author: github_actions
           message: "chore: update repo"
           add: app-repo.json
+
+      - name: Upload app-repo.json to release
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" app-repo.json --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

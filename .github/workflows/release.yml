@@ -1,7 +1,12 @@
-name: Create New Release
+name: Nightly Release
 
 on:
+  schedule:
+    - cron: '0 2 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -16,10 +21,19 @@ jobs:
         run: |
           sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
 
-      - name: Compile Feather
+      - name: Set build metadata
+        run: |
+          BUILD_DATE=$(date -u +%Y-%m-%d)
+          BUILD_DATE_COMPACT=$(date -u +%Y%m%d)
+          SHORT_SHA=$(git rev-parse --short=7 HEAD)
+          echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
+          echo "TAG_NAME=nightly-${BUILD_DATE_COMPACT}-${GITHUB_RUN_ID}" >> $GITHUB_ENV
+          echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
+
+      - name: Compile Feather (Debug)
         run: | 
           agvtool new-version -all $(git rev-parse HEAD)
-          make
+          make CONFIGURATION=Debug
           mkdir upload
           mv packages/* upload/
 
@@ -29,15 +43,16 @@ jobs:
           VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" Payload/*.app/Info.plist)
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
-      - name: Create Release
+      - name: Create Nightly Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Feather v${{ env.VERSION }}
-          tag_name: v${{ env.VERSION }}
+          name: Feather Nightly ${{ env.BUILD_DATE }} (v${{ env.VERSION }} / ${{ env.SHORT_SHA }})
+          tag_name: ${{ env.TAG_NAME }}
           files: |
-            upload/*ipa
+            upload/*
           generate_release_notes: true
           fail_on_unmatched_files: true
-          draft: true
+          draft: false
+          prerelease: true
         env:
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
